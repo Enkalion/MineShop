@@ -135,7 +135,7 @@
         });
         if(document.getElementById('res').classList.contains('active')) { calculate(); }
     }
-    
+
     function calculate() {
         let total = 0;
         const sels = document.querySelectorAll('.sel'), qtys = document.querySelectorAll('.qty');
@@ -144,28 +144,30 @@
             if (p > 0 && q > 0) total += (p * q);
         });
 
-        // Logika obliczeniowa dla małych podpisów oraz dolnej stopki (zachowana z Twojego kodu)
+        // Oryginalna logika przeliczeń (Niezbędna do zachowania małych napisów i dolnej stopki)
         let ironBlk = Math.floor(total / 81), remN = total % 81, ironIng = Math.floor(remN / 9), nug = remN % 9;
         let rawDia = Math.floor(total / 100), diaBlk = Math.floor(rawDia / 9), remD = rawDia % 9, mainNuggets = total % 100;
 
         // NOWE GŁÓWNE WARTOŚCI:
-        // Pierwsza ramka (iTot): Pokazuje teraz pełną cenę przeliczoną na sztabki żelaza
-        let displayIngots = (total / 9).toFixed(1); // Używamy .toFixed(1) w razie gdyby zostały pojedyncze samorodki (np. 1.2 sztabki)
-
-        // Druga ramka (dTot): Zostaje z przeliczeniem na diamenty, tak jak prosiłeś na początku
+        // Pierwsza ramka: Pokazuje pełną cenę przeliczoną na sztabki żelaza
+        let displayIngots = (total / 9).toFixed(1); 
+        // Druga ramka: Zostaje z przeliczeniem na diamenty
         let displayDiamonds = (total / 100).toFixed(2);
 
-        // Wstrzykiwanie danych do Twojego oryginalnego HTML
+        // Wstrzykiwanie danych do oryginalnego HTML przy użyciu .innerText
         document.getElementById('iTot').innerText = displayIngots;
         document.getElementById('iBlk').innerText = uiText[currentLang].blkText(ironBlk, ironIng, nug);
         
         document.getElementById('dTot').innerText = displayDiamonds;
         document.getElementById('dBlk').innerText = uiText[currentLang].diaBlkText(diaBlk, remD);
         
-        // Trzecia linia (Stopka) - generuje dokładnie ten sam ciąg i bloki, bez zmian
+        // Trzecia linia (Stopka) - przywrócone poprawne .innerText
         document.getElementById('mTot').innerText = uiText[currentLang].mainText(rawDia, mainNuggets);
+        
+        // Pokazanie okienka z wynikami
         document.getElementById('res').classList.add('active');
     }
+
 
 
     function resetForm() {
